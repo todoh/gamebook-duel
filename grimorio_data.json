@@ -1,0 +1,221 @@
+{
+  "bookTitle": "La Senda del Acero",
+  "startPage": "1",
+  "pages": {
+    "1": {
+      "title": "GUARDIA MEDIA (Inicio)",
+      "defense": 12,
+      "description": "Estás de pie, estudiando al rival. Ni ventaja ni desventaja.",
+      "zone": "Neutral",
+      "options": [
+        { "id": "A", "name": "Sondeo Rápido", "bonus": "+5", "damage": "2", "win_self": "10", "win_rival": "1" },
+        { "id": "B", "name": "Golpe de Hombro", "bonus": "+3", "damage": "4", "win_self": "20", "win_rival": "50" },
+        { "id": "C", "name": "Cargar con Todo", "bonus": "+1", "damage": "8", "win_self": "25", "win_rival": "55" },
+        { "id": "D", "name": "Esperar Fallo", "bonus": "+6", "damage": "0", "win_self": "5", "win_rival": "15" }
+      ],
+      "on_loss": "Ve a Pág. 50"
+    },
+    "5": {
+      "title": "GUARDIA DEFENSIVA (Tortuga)",
+      "defense": 15,
+      "description": "Te cubres tras tu defensa. Es difícil golpearte.",
+      "zone": "Neutral",
+      "options": [
+        { "id": "A", "name": "Parry y Estocada", "bonus": "+2", "damage": "6", "win_self": "22", "win_rival": "60" },
+        { "id": "B", "name": "Empujón de Escudo", "bonus": "+4", "damage": "2", "win_self": "1", "win_rival": "50" },
+        { "id": "C", "name": "Recuperar Aliento", "bonus": "Auto", "damage": "Cura 3", "win_self": "1", "win_rival": "-" }
+      ],
+      "on_loss": "Tu defensa se rompe. Ve a Pág. 52"
+    },
+    "10": {
+      "title": "INICIATIVA AGRESIVA",
+      "defense": 11,
+      "description": "Tienes el ritmo del combate. Tú marcas los tiempos.",
+      "zone": "Neutral",
+      "options": [
+        { "id": "A", "name": "Presión Constante", "bonus": "+4", "damage": "3", "win_self": "20", "win_rival": "50" },
+        { "id": "B", "name": "Barrido de Piernas", "bonus": "+3", "damage": "2", "win_self": "25", "win_rival": "55" },
+        { "id": "C", "name": "Finta Magistral", "bonus": "+5", "damage": "0", "win_self": "30", "win_rival": "15" }
+      ],
+      "on_loss": "Te interceptan. Ve a Pág. 1"
+    },
+    "15": {
+      "title": "CANSANCIO / DUDA",
+      "defense": 10,
+      "description": "Estás jadeando. Tus bonos son bajos aquí.",
+      "zone": "Neutral",
+      "options": [
+        { "id": "A", "name": "Golpe Torpe", "bonus": "+1", "damage": "4", "win_self": "1", "win_rival": "1" },
+        { "id": "B", "name": "Retroceder", "bonus": "+4", "damage": "0", "win_self": "80", "win_rival": "1" },
+        { "id": "C", "name": "Grito de Guerra", "bonus": "+2", "damage": "0", "win_self": "10", "win_rival": "15" }
+      ],
+      "on_loss": "Ve a Pág. 50"
+    },
+    "20": {
+      "title": "PRESIÓN CONSTANTE",
+      "defense": 10,
+      "description": "Estás atacando sin parar. Arriesgado pero efectivo.",
+      "zone": "Ventaja",
+      "options": [
+        { "id": "A", "name": "Combo de Espada", "bonus": "+4", "damage": "5", "win_self": "25", "win_rival": "60" },
+        { "id": "B", "name": "Rodillazo a la Cara", "bonus": "+3", "damage": "6", "win_self": "20", "win_rival": "62" },
+        { "id": "C", "name": "Desarmar", "bonus": "+1", "damage": "1", "win_self": "25", "win_rival": "70" }
+      ],
+      "on_loss": "El rival rueda y escapa. Ve a Pág. 1"
+    },
+    "22": {
+      "title": "PUNTO CIEGO (Flanqueo)",
+      "defense": 14,
+      "description": "No te ve bien. Tiras el dado dos veces y eliges el mejor.",
+      "zone": "Ventaja",
+      "options": [
+        { "id": "A", "name": "Puñalada Trapera", "bonus": "+3", "damage": "8", "win_self": "30", "win_rival": "60" },
+        { "id": "B", "name": "Patada a la Corva", "bonus": "+4", "damage": "2", "win_self": "25", "win_rival": "55" }
+      ],
+      "on_loss": "Se gira a tiempo. Ve a Pág. 1"
+    },
+    "25": {
+      "title": "DOMINIO TOTAL",
+      "defense": 12,
+      "description": "Tienes el control total de la situación.",
+      "zone": "Ventaja",
+      "options": [
+        { "id": "A", "name": "Golpe de Gracia", "bonus": "+1", "damage": "12", "win_self": "10", "win_rival": "55" },
+        { "id": "B", "name": "Lanzar contra Muro", "bonus": "+3", "damage": "4", "win_self": "20", "win_rival": "62" },
+        { "id": "C", "name": "Preparar Ejecución", "bonus": "+5", "damage": "0", "win_self": "100", "win_rival": "65" }
+      ],
+      "on_loss": "Ve a Pág. 50"
+    },
+    "30": {
+      "title": "A LA ESPALDA DEL RIVAL",
+      "defense": 18,
+      "description": "No puede darte desde aquí.",
+      "zone": "Ventaja",
+      "options": [
+        { "id": "A", "name": "Degollar", "bonus": "+2", "damage": "15", "win_self": "1", "win_rival": "55" },
+        { "id": "B", "name": "Estrangular", "bonus": "+4", "damage": "4", "win_self": "30", "win_rival": "15" }
+      ],
+      "on_loss": "Te da un codazo hacia atrás. Ve a Pág. 50"
+    },
+    "50": {
+      "title": "RETROCESO",
+      "defense": 8,
+      "description": "Estás vulnerable y retrocediendo.",
+      "zone": "Desventaja",
+      "options": [
+        { "id": "A", "name": "Golpe Desesperado", "bonus": "+1", "damage": "8", "win_self": "1", "win_rival": "50" },
+        { "id": "B", "name": "Rodar Lejos", "bonus": "+5", "damage": "0", "win_self": "80", "win_rival": "1" },
+        { "id": "C", "name": "Guardia Alta", "bonus": "+4", "damage": "0", "win_self": "5", "win_rival": "20" }
+      ],
+      "on_loss": "Ve a Pág. 55 (Suelo)"
+    },
+    "52": {
+      "title": "GUARDIA ROTA",
+      "defense": 6,
+      "description": "No puedes usar bonos de ataque mayores a +2.",
+      "zone": "Desventaja",
+      "options": [
+        { "id": "A", "name": "Recuperar Equilibrio", "bonus": "+3", "damage": "0", "win_self": "50", "win_rival": "20" },
+        { "id": "B", "name": "Empujón Suicida", "bonus": "+1", "damage": "2", "win_self": "15", "win_rival": "15" }
+      ],
+      "on_loss": "Recibes +3 de Daño extra. Ve a Pág. 60"
+    },
+    "55": {
+      "title": "DERRIBADO (SUELO)",
+      "defense": 5,
+      "description": "Tiras 2 dados, eliges el PEOR.",
+      "zone": "Desventaja",
+      "options": [
+        { "id": "A", "name": "Patada Ascendente", "bonus": "+4", "damage": "3", "win_self": "50", "win_rival": "50" },
+        { "id": "B", "name": "Rodar por el suelo", "bonus": "+2", "damage": "0", "win_self": "80", "win_rival": "1" },
+        { "id": "C", "name": "Hacerse el Muerto", "bonus": "Truco", "damage": "0", "win_self": "22", "win_rival": "1" }
+      ],
+      "on_loss": "Recibes doble daño. Te quedas en Pág. 55"
+    },
+    "60": {
+      "title": "HERIDA GRAVE / SANGRANDO",
+      "defense": 9,
+      "description": "Pierdes 1 de Vida al inicio de cada turno automáticamente.",
+      "zone": "Desventaja",
+      "options": [
+        { "id": "A", "name": "Vendaje Rápido", "bonus": "+2", "damage": "Cura 2", "win_self": "50", "win_rival": "20" },
+        { "id": "B", "name": "Ira de Sangre", "bonus": "+5", "damage": "10", "win_self": "15", "win_rival": "60" }
+      ],
+      "on_loss": "Ve a Pág. 62"
+    },
+    "62": {
+      "title": "ATURDIDO / MAREADO",
+      "defense": 7,
+      "description": "Solo tienes 1 opción disponible.",
+      "zone": "Desventaja",
+      "options": [
+        { "id": "A", "name": "Sacudir Cabeza", "bonus": "+3", "damage": "0", "win_self": "50", "win_rival": "25" }
+      ],
+      "on_loss": "Ve a Pág. 55"
+    },
+    "65": {
+      "title": "ACORRALADO",
+      "defense": 8,
+      "description": "Contra la pared. No puedes rodar.",
+      "zone": "Desventaja",
+      "options": [
+        { "id": "A", "name": "Usar la Pared", "bonus": "+4", "damage": "2", "win_self": "22", "win_rival": "62" },
+        { "id": "B", "name": "Guardia Férrea", "bonus": "+3", "damage": "0", "win_self": "5", "win_rival": "20" }
+      ],
+      "on_loss": "Ve a Pág. 100 (Ejecución)"
+    },
+    "70": {
+      "title": "DESARMADO",
+      "defense": 10,
+      "description": "Tus ataques hacen -5 de daño (Mínimo 1).",
+      "zone": "Desventaja",
+      "options": [
+        { "id": "A", "name": "Recuperar Arma", "bonus": "+2", "damage": "0", "win_self": "50", "win_rival": "20" },
+        { "id": "B", "name": "Placaje", "bonus": "+4", "damage": "1", "win_self": "1", "win_rival": "1" }
+      ],
+      "on_loss": "Ve a Pág. 60"
+    },
+    "80": {
+      "title": "LARGA DISTANCIA",
+      "defense": "-",
+      "description": "Demasiado lejos para espadas.",
+      "zone": "Distancia",
+      "options": [
+        { "id": "A", "name": "Arrojar Roca/Daga", "bonus": "+3", "damage": "3", "win_self": "80", "win_rival": "50" },
+        { "id": "B", "name": "Cargar (Correr)", "bonus": "+2", "damage": "0", "win_self": "20", "win_rival": "1" },
+        { "id": "C", "name": "Burlarse", "bonus": "+5", "damage": "0", "win_self": "80", "win_rival": "10" }
+      ],
+      "on_loss": "Si rival carga: Pág. 50. Si dispara: Pág. 80"
+    },
+    "85": {
+      "title": "TERRENO ELEVADO",
+      "defense": 14,
+      "description": "+2 a todas tus tiradas.",
+      "zone": "Distancia",
+      "options": [
+        { "id": "A", "name": "Salto con Ataque", "bonus": "+3", "damage": "8", "win_self": "1", "win_rival": "55" },
+        { "id": "B", "name": "Defender Posición", "bonus": "+4", "damage": "2", "win_self": "85", "win_rival": "50" }
+      ],
+      "on_loss": "Te bajan a la fuerza. Ve a Pág. 55"
+    },
+    "100": {
+      "title": "LA EJECUCIÓN",
+      "defense": "-",
+      "description": "El rival está a tu merced.",
+      "zone": "Final",
+      "options": [
+        { "id": "A", "name": "DECAPITACIÓN", "bonus": "+2", "damage": "LETAL", "win_self": "101", "win_rival": "101" },
+        { "id": "B", "name": "PIEDAD", "bonus": "Auto", "damage": "0", "win_self": "1", "win_rival": "1" }
+      ],
+      "on_loss": "¡Milagro! El rival hace parry. Ve a Pág. 55"
+    },
+    "101": {
+      "title": "FIN DEL DUELO",
+      "defense": "-",
+      "description": "Has perdido toda tu vida o sufrido una ejecución.",
+      "zone": "Final",
+      "options": [],
+      "on_loss": "Dale la mano a tu oponente."
+    }
+  }
+}
