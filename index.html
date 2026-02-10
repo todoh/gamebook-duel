@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Grimorio de Duelo</title>
+    <script type="module" src="styles.css"></script>
+    <style>
+        :root {
+            --bg-paper: #f4e4bc;
+            --text-ink: #2b2b2b;
+            --accent-red: #8a2be2; /* Un toque místico */
+            --accent-gold: #c5a059;
+            --shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #222;
+            color: var(--text-ink);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Contenedor Principal (El Libro) */
+        #app-container {
+            width: 100%;
+            max-width: 500px;
+            background-color: var(--bg-paper);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            position: relative;
+            /* Permite scroll vertical pero gestiona mejor los gestos horizontales */
+            touch-action: pan-y;
+        }
+
+        /* Cabecera */
+        header {
+            background: #3e2723;
+            color: #d7ccc8;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        h1 { margin: 0; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .page-input-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        #page-input {
+            width: 40px;
+            padding: 5px;
+            background: #5d4037;
+            border: 1px solid #8d6e63;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        button.nav-btn {
+            background: #8d6e63;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Contenido de la Página */
+        #page-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZjRlNGJjIi8+CjxwYXRoIGQ9Ik0wIDBoNHY0SDB6IiBmaWxsPSIjZThkOGIwIiBmaWxsLW9wYWNpdHk9IjAuNSIvPjwvc3ZnPg==');
+            /* Transición suave para el cambio de página */
+            transition: opacity 0.2s ease-in-out;
+            opacity: 1;
+        }
+
+        .zone-tag {
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            text-align: center;
+            margin: 5px 0 15px 0;
+            border-bottom: 2px solid var(--text-ink);
+            padding-bottom: 10px;
+        }
+
+        .stats-box {
+            background: rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-value { font-weight: bold; font-size: 1.2rem; }
+
+        .description {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        /* Tabla de Acciones */
+        .actions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .actions-table th {
+            text-align: left;
+            border-bottom: 2px solid #000;
+            padding: 5px;
+            font-size: 0.8rem;
+        }
+
+        .actions-table td {
+            padding: 10px 5px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            vertical-align: top;
+        }
+
+        .option-id { font-weight: bold; color: #8a2be2; font-size: 1.2rem; }
+        .bonus-badge { 
+            background: #333; color: #fff; 
+            padding: 2px 6px; border-radius: 4px; 
+            font-size: 0.8rem; font-weight: bold;
+        }
+        .damage-text { color: #d32f2f; font-weight: bold; }
+        
+        .jump-link {
+            color: #0056b3;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .loss-condition {
+            margin-top: 30px;
+            padding: 15px;
+            border: 2px dashed #d32f2f;
+            color: #b71c1c;
+            background: rgba(211, 47, 47, 0.05);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Botón de Dado Flotante */
+        #dice-fab {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #3e2723;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            cursor: pointer;
+            z-index: 100;
+            border: 2px solid #d7ccc8;
+        }
+
+        /* Modal de Dado */
+        #dice-modal {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 200;
+        }
+
+        #dice-display {
+            font-size: 8rem;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px gold;
+        }
+
+        .roll-btn {
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            background: #d7ccc8;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-modal {
+            margin-top: 20px;
+            color: #aaa;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Animación */
+        .shake { animation: shake 0.5s; }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="app-container">
+        <header>
+            <h1>Grimorio</h1>
+            <div class="page-input-container">
+                <span>Pág.</span>
+                <input type="number" id="page-input" value="1">
+                <button class="nav-btn" onclick="goToInputPage()">Ir</button>
+            </div>
+        </header>
+
+        <div id="page-content">
+            <!-- El contenido se carga aquí dinámicamente -->
+            <div style="text-align: center; margin-top: 50px;">Cargando Grimorio...</div>
+        </div>
+
+        <!-- Botón de Dado -->
+        <div id="dice-fab" onclick="toggleDiceModal()">🎲</div>
+
+        <!-- Modal de Dado -->
+        <div id="dice-modal">
+            <div id="dice-display">?</div>
+            <button class="roll-btn" onclick="rollDice()">¡TIRAR!</button>
+            <div class="close-modal" onclick="toggleDiceModal()">Cerrar</div>
+        </div>
+    </div>
+
+    <script>
+        // Estado de la aplicación
+        let bookData = null;
+        let currentPageId = '1';
+        let pageKeys = []; // Lista ordenada de todas las páginas disponibles
+        
+        // Variables para detectar gestos (swipe)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        // Elementos del DOM
+        const contentDiv = document.getElementById('page-content');
+        const pageInput = document.getElementById('page-input');
+        const diceModal = document.getElementById('dice-modal');
+        const diceDisplay = document.getElementById('dice-display');
+        const appContainer = document.getElementById('app-container');
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            loadBookData();
+            // Recuperar página guardada
+            const savedPage = localStorage.getItem('grimorioPage');
+            if (savedPage) {
+                currentPageId = savedPage;
+                pageInput.value = savedPage;
+            }
+
+            // Añadir listeners para deslizamiento
+            setupSwipeListeners();
+        });
+
+        // Configuración de gestos táctiles
+        function setupSwipeListeners() {
+            appContainer.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+
+            appContainer.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, {passive: true});
+        }
+
+        function handleSwipe() {
+            const threshold = 50; // Mínima distancia en píxeles para considerar swipe
+            const diff = touchEndX - touchStartX;
+
+            if (Math.abs(diff) > threshold) {
+                if (diff < 0) {
+                    // Deslizar a la izquierda (Dedos van izquierda) -> Avanzar página
+                    changePageSequential(1);
+                } else {
+                    // Deslizar a la derecha (Dedos van derecha) -> Retroceder página
+                    changePageSequential(-1);
+                }
+            }
+        }
+
+        function changePageSequential(direction) {
+            if (!bookData || pageKeys.length === 0) return;
+
+            // Encontrar índice actual en la lista ordenada de claves
+            const currentIndex = pageKeys.indexOf(String(currentPageId));
+            if (currentIndex === -1) return;
+
+            let newIndex = currentIndex + direction;
+
+            // Comprobar límites
+            if (newIndex >= 0 && newIndex < pageKeys.length) {
+                const newPageId = pageKeys[newIndex];
+                
+                // Efecto visual de desvanecimiento
+                contentDiv.style.opacity = '0';
+                
+                setTimeout(() => {
+                    goToPage(newPageId);
+                    contentDiv.style.opacity = '1';
+                }, 200);
+            }
+        }
+
+        // Cargar JSON
+        async function loadBookData() {
+            try {
+                const response = await fetch('grimorio_data.json');
+                if (!response.ok) throw new Error("No se pudo cargar el archivo local");
+                bookData = await response.json();
+                
+                // Ordenar las IDs de las páginas numéricamente para poder "leer" el libro
+                pageKeys = Object.keys(bookData.pages).sort((a, b) => parseInt(a) - parseInt(b));
+                
+                renderPage(currentPageId);
+            } catch (error) {
+                console.error(error);
+                contentDiv.innerHTML = `
+                    <div style="text-align:center; color: red; padding: 20px;">
+                        <h3>Error de Carga</h3>
+                        <p>No se pudo cargar 'grimorio_data.json'.</p>
+                        <p>Si estás abriendo este archivo localmente, usa un servidor local o asegúrate de que ambos archivos estén en la misma carpeta.</p>
+                        <small>${error.message}</small>
+                    </div>
+                `;
+            }
+        }
+
+        // Renderizar Página
+        function renderPage(pageId) {
+            // Validar existencia
+            if (!bookData || !bookData.pages[pageId]) {
+                contentDiv.innerHTML = `<div style="text-align:center"><h3>La página ${pageId} no existe.</h3><button class="nav-btn" onclick="goToPage('1')">Volver al Inicio</button></div>`;
+                return;
+            }
+
+            const page = bookData.pages[pageId];
+            
+            // Guardar estado
+            currentPageId = pageId;
+            pageInput.value = pageId;
+            localStorage.setItem('grimorioPage', pageId);
+
+            // Construir HTML de las opciones
+            let optionsHtml = '';
+            page.options.forEach(opt => {
+                // Parsear destinos para hacerlos clickables si son números
+                const selfDest = parseInt(opt.win_self) ? `<span class="jump-link" onclick="goToPage('${opt.win_self}')">Pág. ${opt.win_self}</span>` : opt.win_self;
+                const rivalDest = parseInt(opt.win_rival) ? `Pág. ${opt.win_rival}` : opt.win_rival;
+
+                optionsHtml += `
+                    <tr>
+                        <td class="option-id">${opt.id}</td>
+                        <td>
+                            <strong>${opt.name}</strong><br>
+                            <span class="bonus-badge">Dado ${opt.bonus}</span>
+                        </td>
+                        <td class="damage-text">${opt.damage}</td>
+                        <td>
+                            <div><strong>Tú:</strong> ${selfDest}</div>
+                            <div><strong>Rival:</strong> ${rivalDest}</div>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            // Parsear texto de "Si pierdes" para buscar links
+            // Regex simple para encontrar "Pág. XX" y hacerlo clickable
+            let lossText = page.on_loss.replace(/Pág\. (\d+)/g, '<span class="jump-link" onclick="goToPage(\'$1\')">Pág. $1</span>');
+
+            // Inyectar HTML
+            contentDiv.innerHTML = `
+                <span class="zone-tag">Zona: ${page.zone}</span>
+                <div class="stats-box">
+                    <span>Defensa: <span class="stat-value">${page.defense}</span></span>
+                    <span>Pág. <span class="stat-value">${pageId}</span></span>
+                </div>
+                <h2 class="page-title">${page.title}</h2>
+                <div class="description">${page.description}</div>
+                
+                <table class="actions-table">
+                    <thead>
+                        <tr>
+                            <th width="10%">#</th>
+                            <th width="35%">Acción</th>
+                            <th width="15%">Daño</th>
+                            <th width="40%">Si Ganas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${optionsHtml}
+                    </tbody>
+                </table>
+
+                <div class="loss-condition">
+                    SI PIERDES:<br>
+                    ${lossText}
+                </div>
+            `;
+            
+            // Scroll arriba
+            contentDiv.scrollTop = 0;
+        }
+
+        // Navegación
+        function goToPage(id) {
+            renderPage(id);
+        }
+
+        function goToInputPage() {
+            const val = pageInput.value;
+            if(val) goToPage(val);
+        }
+
+        // Sistema de Dados
+        function toggleDiceModal() {
+            if (diceModal.style.display === 'flex') {
+                diceModal.style.display = 'none';
+            } else {
+                diceModal.style.display = 'flex';
+                diceDisplay.textContent = "?";
+                diceDisplay.classList.remove('shake');
+            }
+        }
+
+        function rollDice() {
+            diceDisplay.classList.add('shake');
+            diceDisplay.textContent = "...";
+            
+            setTimeout(() => {
+                const result = Math.floor(Math.random() * 6) + 1;
+                diceDisplay.textContent = result;
+                diceDisplay.classList.remove('shake');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
